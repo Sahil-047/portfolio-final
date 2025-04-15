@@ -64,11 +64,11 @@ const Excellence = () => {
   return (
     <section
       ref={sectionRef}
-      className="h-[200vh] sm:h-[250vh] md:h-[300vh] relative" // Responsive height
+      className="h-[200vh] sm:h-[250vh] md:h-[300vh] relative"
     >
       <div 
         ref={containerRef}
-        className="sticky top-0 h-screen w-full overflow-hidden bg-[#111111] flex items-center justify-center px-4 sm:px-6 md:px-8" // Added responsive padding
+        className="sticky top-0 h-screen w-full overflow-hidden bg-[#111111] flex items-center justify-center px-4 sm:px-6 md:px-8"
       >
         <div 
           ref={textContainerRef}
@@ -79,7 +79,7 @@ const Excellence = () => {
             className="relative"
           >
             <div 
-              className="text-[3rem] sm:text-[5rem] md:text-[8rem] lg:text-[12rem] xl:text-[16rem] font-bold tracking-tighter sf-bold leading-none whitespace-nowrap excellence-text" // Responsive text sizes and prevent wrapping
+              className="text-[3rem] sm:text-[5rem] md:text-[8rem] lg:text-[12rem] xl:text-[16rem] font-bold tracking-tighter sf-bold leading-none whitespace-nowrap text-[#f5f5f5]/90 excellence-text" // Added text color with slight transparency
             >
               EXCELLENCE
             </div>

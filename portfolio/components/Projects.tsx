@@ -26,7 +26,19 @@ const projectsData: Project[] = [
     type: "Web Application",
     image: "/projects/prodeus.jpg",
     link: "https://prodeus.com"
-  }
+  },
+  {
+    name: "blank",
+    type: "Web Application",
+    image: "/projects/gamespeak.jpg",
+    link: "https://gamespeak.com"
+  },
+  {
+    name: "nothing",
+    type: "Web Application",
+    image: "/projects/gamespeak.jpg",
+    link: "https://gamespeak.com"
+  },
 ];
 
 const Projects: React.FC = () => {

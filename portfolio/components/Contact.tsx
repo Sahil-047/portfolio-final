@@ -1,118 +1,152 @@
 import React, { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Contact: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const textContainerRef = useRef<HTMLDivElement>(null);
+  const bgTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (sectionRef.current) {
-      gsap.from(sectionRef.current.children, {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: "power3.out",
+    if (!sectionRef.current || !containerRef.current || !textContainerRef.current || !bgTextRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Set initial states
+      gsap.set(textContainerRef.current, {
+        y: '-80vh' // Reduced from -100vh
+      });
+
+      gsap.set(bgTextRef.current, {
+        opacity: 0.03,
+        y: '80vh' // Reduced from 100vh
+      });
+
+      // Create scrolling animation with reduced scroll length
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top center+=100",
-          toggleActions: "play none none reverse"
+          start: "top top",
+          end: "+=150%", // Reduced from 200%
+          pin: true,
+          scrub: 0.8, // Slightly reduced for smoother motion
+          invalidateOnRefresh: true
         }
       });
-    }
+
+      // Adjust animation timing
+      tl.to(textContainerRef.current, {
+        y: '0',
+        ease: "none",
+        duration: 0.8 // Added duration for smoother movement
+      })
+      .to(bgTextRef.current, {
+        y: '0',
+        opacity: 0.05,
+        ease: "none",
+        duration: 0.8 // Added duration for smoother movement
+      }, "<");
+    });
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section id="contact" className="min-h-screen bg-black text-white py-20 px-4 md:px-8 lg:px-16">
-      <div className="max-w-4xl mx-auto">
-        <div ref={sectionRef}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">Get in Touch</h2>
-          <p className="text-xl text-gray-400 mb-12">
-            Would love to hear from you. If you have requests or questions, feel free to reach out.
-          </p>
+    <section
+      ref={sectionRef}
+      className="min-h-[90vh] bg-[#111111] relative overflow-hidden" // Reduced from min-h-screen
+    >
+      {/* Background Text */}
+      <div
+        ref={bgTextRef}
+        className="fixed top-0 left-0 w-full text-[20vw] text-white opacity-[0.03] font-bold pointer-events-none z-0 whitespace-nowrap"
+        style={{ writingMode: 'vertical-rl' }}
+      >
+        CONTACT CONTACT CONTACT
+      </div>
 
-          <form className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
-                  placeholder="Your name"
-                />
+      {/* Main Content Container */}
+      <div
+        ref={containerRef}
+        className="relative z-10 min-h-screen flex items-center justify-center"
+      >
+        {/* Content Wrapper */}
+        <div
+          ref={textContainerRef}
+          className="max-w-[1400px] w-full mx-auto px-4 sm:px-8 md:px-16"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Left Column - Navigation Links */}
+            <div className="space-y-4">
+              {/* Quick Links */}
+              <div className="mb-8">
+                <h3 className="text-l font-bold text-[#666666] mb-4">QUICK LINKS</h3>
+                <div className="flex items-center space-x-2 text-sm">
+                  <Link href="/" className="text-white hover:text-[#666666] transition-colors">
+                    HOME
+                  </Link>
+                  <span className="text-[#333333]">—</span>
+                  <Link href="/projects" className="text-white hover:text-[#666666] transition-colors">
+                    PROJECTS
+                  </Link>
+                  <span className="text-[#333333]">—</span>
+                  <Link href="/blog" className="text-white hover:text-[#666666] transition-colors">
+                    BLOG
+                  </Link>
+                </div>
               </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
-                  placeholder="your@email.com"
-                />
+
+              {/* Extras */}
+              <div className="mb-16">
+                <h3 className="text-l font-bold text-[#666666] mb-4">EXTRAS</h3>
+                <div className="flex items-center space-x-2 text-sm">
+                  <Link href="/resume" className="text-white hover:text-[#666666] transition-colors">
+                    RESUME
+                  </Link>
+                  <span className="text-[#333333]">—</span>
+                  <Link href="/credits" className="text-white hover:text-[#666666] transition-colors">
+                    INSTAGRAM
+                  </Link>
+                </div>
               </div>
             </div>
 
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-2">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={6}
-                className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 transition-colors resize-none"
-                placeholder="Your message..."
-              ></textarea>
+            {/* Right Column - Contact Section */}
+            <div className="space-y-4 md:pl-8">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl text-white font-bold">
+                Would love to hear from you ↓.
+              </h2>
+              <p className="text-[#666666]">
+                If you have requests or questions, kindly do not hesitate to contact me.
+              </p>
+              <Link 
+                href="mailto:sgolder40@gmail.com" 
+                className="text-white hover:text-[#666666] transition-colors inline-block"
+              >
+                sgolder40@gmail.com
+              </Link>
             </div>
+          </div>
 
-            <button
-              type="submit"
-              className="w-full md:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-300"
-            >
-              Send Message
-            </button>
-          </form>
-
-          <div className="mt-16 flex flex-wrap gap-6 justify-center">
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              Twitter
-            </a>
-            <a
-              href="mailto:contact@example.com"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              Email
-            </a>
+          {/* Footer Links */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pt-8 border-t border-[#333333] mt-20">
+            <div className="flex gap-6 text-xs mb-4 sm:mb-0">
+              <Link href="linkedin.com/in/sahil-golder" target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-white transition-colors">
+                LINKEDIN
+              </Link>
+              <Link href="https://github.com/Sahil-047" target="_blank" rel="noopener noreferrer" className="text-[#666666] hover:text-white transition-colors">
+                GITHUB
+              </Link>
+              <Link href="mailto:sgolder40@gmail.com" className="text-[#666666] hover:text-white transition-colors">
+                EMAIL
+              </Link>
+            </div>
+            <div className="text-xs text-[#666666]">
+              © 2025 Sahil Golder. All rights reserved.
+            </div>
           </div>
         </div>
       </div>
@@ -120,4 +154,4 @@ const Contact: React.FC = () => {
   );
 };
 
-export default Contact; 
+export default Contact;
