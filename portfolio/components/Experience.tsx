@@ -130,13 +130,13 @@ const Experience: React.FC = () => {
       className="min-h-[100svh] bg-[#111111] flex items-center justify-center py-6 sm:py-10 md:py-20 px-4 sm:px-6 md:px-8 lg:px-16 relative overflow-hidden"
     >
       <div className="max-w-[1400px] w-full relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-6 md:gap-8 lg:gap-16 items-start md:items-center">
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr] gap-6 sm:gap-8 lg:gap-16 items-start sm:items-center">
           {/* Left column - Company list */}
           <div className="space-y-4 sm:space-y-6 relative">
             {/* Background text under companies section with inverse scrolling */}
             <div 
               ref={fadeTextRef}
-              className="absolute -z-10 left-0 -bottom-10 sm:-bottom-20 text-[8rem] sm:text-[10rem] md:text-[12rem] lg:text-[16rem] font-bold tracking-[-0.05em] leading-[0.8] pointer-events-none text-white opacity-5 whitespace-nowrap overflow-hidden transform-gpu"
+              className="absolute -z-10 left-0 -bottom-10 sm:-bottom-20 text-[6rem] sm:text-[8rem] md:text-[10rem] lg:text-[12rem] xl:text-[16rem] font-bold tracking-[-0.05em] leading-[0.8] pointer-events-none text-white opacity-5 whitespace-nowrap overflow-hidden transform-gpu"
             >
               WORK
             </div>
@@ -144,7 +144,7 @@ const Experience: React.FC = () => {
             {experiences.map((exp) => (
               <div
                 key={exp.company}
-                className={`relative text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-[0.9] tracking-[-0.02em] cursor-pointer sf-bold transition-colors duration-500 
+                className={`relative text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold leading-[0.9] tracking-[-0.02em] cursor-pointer sf-bold transition-colors duration-500 
                 ${activeCompany === exp.company ? 'text-white' : 'text-[#333333]'}`}
                 onClick={() => {
                   setActiveCompany(exp.company);
@@ -163,7 +163,7 @@ const Experience: React.FC = () => {
           </div>
 
           {/* Right column - Experience details */}
-          <div className="self-start md:self-center space-y-4 sm:space-y-6">
+          <div className="self-start sm:self-center space-y-4 sm:space-y-6">
             <h3 className="text-white text-base sm:text-lg md:text-xl font-bold tracking-[-0.02em] leading-none">
               {currentCompany.company}
             </h3>
@@ -175,7 +175,7 @@ const Experience: React.FC = () => {
               <div className="text-[#888888] text-sm sm:text-base leading-relaxed mt-4 sm:mt-8">
                 {currentCompany.description}
               </div>
-              
+
               {currentCompany.company === "RedBrick AI" && (
                 <ul className="list-disc pl-4 sm:pl-5 mt-3 sm:mt-4 text-[#888888] space-y-1">
                   <li className="text-sm sm:text-base">Senior Frontend Engineer</li>
