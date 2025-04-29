@@ -37,7 +37,7 @@ const About: React.FC = () => {
         className="max-w-[90%] sm:max-w-[85%] md:max-w-4xl w-full flex justify-center"
       >
         {/* Text Content */}
-        <div className="w-full max-w-full sm:max-w-2xl space-y-1 sm:space-y-2">
+        <div className="w-full max-w-full sm:max-w-2xl space-y-1 sm:space-y-2 cursor-pointer ">
           <p className={textStyle}>
             Over the years I have spent time converting designs into
           </p>

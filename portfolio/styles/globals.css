@@ -65,6 +65,10 @@
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
+  
+  .section-boundary {
+    contain: layout;
+  }
 }
 
 /* Ensure the body itself doesn't show scrollbars on this section */
@@ -102,4 +106,9 @@ body:has(.no-scrollbar) {
 /* Optional: Add custom cursor */
 .cursor-project {
   cursor: pointer;
+}
+
+/* Ensure proper section stacking */
+section {
+  isolation: isolate;
 }
