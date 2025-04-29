@@ -43,37 +43,26 @@ const Skills = () => {
     if (!sectionRef.current || !imageContainerRef.current || !titleRef.current || !contentRef.current || 
         !usedByRef.current || !myHandsRef.current || !andMindRef.current) return;
 
-    // Create GSAP context
     const ctx = gsap.context(() => {
-      // Text animation when scrolling into the section
-      const titleTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top center",
-          end: "top 20%", 
-          scrub: 1,
-        }
+      const mm = gsap.matchMedia();
+
+      // Only apply animations on large screens (≥1024px)
+      mm.add("(min-width: 1024px)", () => {
+        const titleTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top center",
+            end: "top 20%", 
+            scrub: 1,
+          }
+        });
+
+        titleTl.to(usedByRef.current, { x: 100, duration: 1 }, 0)
+              .to(myHandsRef.current, { x: -150, duration: 1 }, 0)
+              .to(andMindRef.current, { x: 100, duration: 1 }, 0);
       });
 
-      // Move "Used by" slightly to the right
-      titleTl.to(usedByRef.current, {
-        x: 100, // Move right
-        duration: 1
-      }, 0);
-
-      // Move "my hands" to the left
-      titleTl.to(myHandsRef.current, {
-        x: -150, // Move more to the left
-        duration: 1
-      }, 0);
-
-      // Move "and mind" with "Used by" (to the right)
-      titleTl.to(andMindRef.current, {
-        x: 100, // Same as "Used by"
-        duration: 1
-      }, 0);
-
-      // Content sections fade in
+      // Content fade in for all devices
       if (contentRef.current) {
         gsap.from(contentRef.current.querySelectorAll('section'), {
           opacity: 0,
@@ -95,49 +84,33 @@ const Skills = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen bg-[#111111]"
+      className="relative min-h-screen bg-[#111111] overflow-hidden" // Changed from overflow-x-hidden
     >
-      {/* Image Section */}
-      <div 
-        ref={imageContainerRef}
-        className="absolute left-0 top-[5%] w-full md:w-1/3 h-full"
-      >
-        <Image
-          src="/skills-image.jpg"
-          alt="Developer workspace"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-black/10"></div>
-      </div>
-
-      {/* Title Section - Positioned at top right of image section */}
+      {/* Title Section */}
       <div 
         ref={titleRef}
-        className="absolute top-[5%] left-[28%] z-10 md:left-[20%] lg:left-[15%]"
+        className="relative pt-8 px-4 lg:absolute lg:top-[5%] lg:left-[20%] xl:left-[15%] z-10"
       >
-        <h1 className="text-[3rem] md:text-[5rem] lg:text-[6rem] leading-[1.1] font-bold text-left">
-          <div ref={usedByRef} className="text-gray-400/80 inline-block">Used by</div>
-          <div ref={myHandsRef} className="text-white block">my hands</div>
-          <div ref={andMindRef} className="text-gray-400/80 inline-block">and mind</div>
+        <h1 className="text-[2.5rem] sm:text-[3.5rem] md:text-[4rem] lg:text-[5rem] xl:text-[6rem] leading-[1.1] font-bold">
+          <div ref={usedByRef} className="text-gray-400/80 block lg:inline-block">Used by</div>
+          <div ref={myHandsRef} className="text-white block my-2 lg:my-0">my hands</div>
+          <div ref={andMindRef} className="text-gray-400/80 block lg:inline-block">and mind</div>
         </h1>
       </div>
 
-      {/* Content Section - Right Side */}
-      <div className="absolute right-0 top-[10%] w-full md:w-2/3 h-full flex items-center">
+      {/* Content wrapper */}
+      <div className="relative lg:absolute right-0 w-full lg:w-2/3 mt-12 lg:mt-0 lg:top-[10%] min-h-[60vh] lg:h-full">
         <div 
           ref={contentRef}
-          className="pl-4 md:pl-16 pr-4 md:pr-20 w-full"
+          className="px-4 sm:px-8 lg:pl-16 lg:pr-20 w-full h-full scrollbar-hide" // Added scrollbar-hide and h-full
         >
-          {/* Grid layout for sections */}
-          <div className="grid grid-cols-12 gap-x-4 md:gap-x-8 gap-y-8 pt-[10%]">
-            {/* Languages Section - Top left */}
-            <section className="col-span-12 md:col-span-5 pl-4 md:pl-[30%]">
-              <h3 className="text-white text-xl md:text-2xl font-bold mb-4 uppercase">Languages</h3>
-              <ul className="space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-4 pt-[5%]">
+            {/* Languages Section */}
+            <section className="sm:col-span-1 lg:col-span-5 lg:pl-[30%]">
+              <h3 className="text-white text-xl sm:text-2xl font-bold mb-6 uppercase">Languages</h3>
+              <ul className="space-y-3">
                 {languages.map((lang, index) => (
-                  <li key={index} className="flex items-start text-lg md:text-xl">
+                  <li key={index} className="flex items-start text-base sm:text-lg">
                     <span className="text-gray-400 mr-2">•</span>
                     <span className="text-gray-400">{lang}</span>
                   </li>
@@ -145,47 +118,33 @@ const Skills = () => {
               </ul>
             </section>
 
-            {/* Frameworks Section - Top right */}
-            <section className="col-span-12 md:col-span-7">
-              <h3 className="text-white text-xl md:text-2xl font-bold mb-4 uppercase">Frameworks/ Libraries/ Others</h3>
-              <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-10">
-                {/* First column */}
-                <div className="flex-1">
-                  <ul className="space-y-2">
-                    {frameworks.slice(0, 6).map((fw, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="text-gray-400 mr-2">•</span>
-                        <span className="text-gray-400">{fw}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                {/* Second column */}
-                <div className="flex-1">
-                  <ul className="space-y-2">
-                    {frameworks.slice(6).map((fw, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="text-gray-400 mr-2">•</span>
-                        <span className="text-gray-400">{fw}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+            {/* Frameworks Section */}
+            <section className="sm:col-span-1 lg:col-span-7">
+              <h3 className="text-white text-xl sm:text-2xl font-bold mb-6 uppercase">
+                Frameworks/ Libraries/ Others
+              </h3>
+              <ul className="space-y-3">
+                {frameworks.map((fw, index) => (
+                  <li key={index} className="flex items-start text-base sm:text-lg">
+                    <span className="text-gray-400 mr-2">•</span>
+                    <span className="text-gray-400">{fw}</span>
+                  </li>
+                ))}
+              </ul>
             </section>
 
-            {/* Special Section - Bottom area, positioned under Languages and aligned with Frameworks width */}
-            <section className="col-span-12">
-              <div className="grid grid-cols-12">
-                <div className="col-span-12 md:col-span-5 pl-4 md:pl-[30%]">
-                  <h3 className="text-white text-xl md:text-2xl font-bold mb-4 uppercase">Special</h3>
-                  <div className="mb-4 flex items-start">
+            {/* Special Section */}
+            <section className="col-span-full mt-8 lg:mt-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6">
+                <div className="sm:col-span-1 lg:col-span-5 lg:pl-[30%]">
+                  <h3 className="text-white text-xl sm:text-2xl font-bold mb-4 uppercase">Special</h3>
+                  <div className="flex items-start">
                     <span className="text-gray-400 mr-2">•</span>
                     <span className="text-gray-400">Googling 😅</span>
                   </div>
                 </div>
-                <div className="col-span-12 md:col-span-7">
-                  <p className="text-gray-400 text-lg md:text-xl mt-4">
+                <div className="sm:col-span-1 lg:col-span-7 mt-4 sm:mt-0">
+                  <p className="text-gray-400 text-base sm:text-lg">
                     Developers need <span className="text-white">to learn everyday</span> so this list could get really long 😊.
                     <br />
                     See <span className="text-white cursor-pointer hover:underline">more frameworks/libraries here</span>.
@@ -196,8 +155,24 @@ const Skills = () => {
           </div>
         </div>
       </div>
+
+      {/* Image Section */}
+      <div 
+        ref={imageContainerRef}
+        className="hidden lg:block absolute left-0 top-[5%] w-1/3 h-full"
+      >
+        <Image
+          src="/skills-image.jpg"
+          alt="Developer workspace"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/10"></div>
+      </div>
     </section>
   );
 };
 
-export default Skills; 
+export default Skills;

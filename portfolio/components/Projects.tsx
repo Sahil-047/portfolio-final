@@ -94,7 +94,7 @@ const Projects: React.FC = () => {
   }, []);
 
   return (
-    <section className="min-h-[80vh] bg-[#111111] px-4 sm:px-8 md:px-16 py-12">
+    <section id="projects" className="min-h-[80vh] bg-[#111111] px-4 sm:px-8 md:px-16 py-12">
       <div className="max-w-[1400px] mx-auto">
         {/* Title Section */}
         <div 
@@ -102,7 +102,7 @@ const Projects: React.FC = () => {
           className="mb-12 sm:mb-16 pt-12 overflow-hidden" // Reduced margins and padding
         >
           <div className="overflow-hidden">
-            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white font-bold tracking-tighter transform-gpu">
+            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white font-sf tracking-tighter transform-gpu">
               Projects
             </h2>
           </div>
@@ -123,7 +123,7 @@ const Projects: React.FC = () => {
                   onMouseLeave={() => setHoveredProject(null)}
                   onMouseMove={handleMouseMove}
                 >
-                  <h2 className="text-3xl sm:text-5xl md:text-7xl font-bold text-[#333333] transition-colors duration-700 group-hover:text-white">
+                  <h2 className="text-3xl sm:text-5xl md:text-7xl font-sf text-[#333333] transition-colors duration-700 group-hover:text-white">
                     {project.name}
                   </h2>
                   <span className="text-sm sm:text-base text-[#666666]">

@@ -15,8 +15,11 @@ module.exports = {
           '40%': { transform: 'translateY(-20px)' },
           '60%': { transform: 'translateY(-10px)' },
         }
-      }
+      },
+      fontFamily: {
+        'sf-bold': ['SF Pro Display', 'system-ui', '-apple-system', 'sans-serif'],
+      },
     },
   },
   plugins: [],
-} 
+}

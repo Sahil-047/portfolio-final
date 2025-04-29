@@ -59,26 +59,26 @@ const Hero: React.FC = () => {
     return (
         <section 
             ref={containerRef} 
-            className="relative min-h-screen bg-[#f5f5f5] flex flex-col justify-between py-8 md:py-16 lg:py-20 px-4 sm:px-6 md:px-8 lg:px-16 z-20"
+            className="relative min-h-screen bg-[#f5f5f5] flex flex-col justify-between py-8 lg:py-16 xl:py-20 px-4 sm:px-6 lg:px-8 xl:px-16 z-20"
         >
-            {/* Mobile Layout */}
-            <div className="flex flex-col items-center justify-center w-full h-full sm:hidden">
+            {/* Mobile & Tablet Layout */}
+            <div className="flex flex-col items-center justify-center w-full h-full lg:hidden">
                 {/* Title Section */}
                 <div ref={titleRef} className="mb-6 text-center">
-                    <h1 className="text-[2rem] font-bold leading-none tracking-tighter text-black">
+                    <h1 className="text-[2rem] sm:text-[2.5rem] md:text-[3rem] font-bold leading-none tracking-tighter text-black">
                         SOFTWARE
                         <br />
                         DEVELOPER
                     </h1>
-                    <p className="text-base mt-2 text-black/80">
+                    <p className="text-base sm:text-lg md:text-xl mt-2 sm:mt-3 text-black/80">
                         — WEB DEVELOPER & DESIGNER
                     </p>
                 </div>
 
                 {/* Profile Image and Name Section */}
-                <div className="relative mt-8 w-full max-w-[280px]">
+                <div className="relative mt-8 sm:mt-12 w-full max-w-[280px] sm:max-w-[320px] md:max-w-[360px]">
                     {/* Image */}
-                    <div className="w-full h-[300px] bg-[#1c1c1c] overflow-hidden">
+                    <div className="w-full h-[300px] sm:h-[340px] md:h-[380px] bg-[#1c1c1c] overflow-hidden">
                         <img 
                             src="/profile.png" 
                             alt="Sahil Golder"
@@ -87,11 +87,11 @@ const Hero: React.FC = () => {
                     </div>
 
                     {/* Name Section */}
-                    <div ref={nameRef} className="absolute mt-4 right-0 text-right" style={{ top: '100%' }}>
-                        <p className="text-xs text-black/80 mb-1">
+                    <div ref={nameRef} className="absolute mt-4 sm:mt-6 right-0 text-right" style={{ top: '100%' }}>
+                        <p className="text-xs sm:text-sm md:text-base text-black/80 mb-1 sm:mb-2">
                             — FULL STACK CAPABLE
                         </p>
-                        <h2 className="text-[1.5rem] font-bold leading-none tracking-tighter text-black">
+                        <h2 className="text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] font-bold leading-none tracking-tighter text-black">
                             SAHIL
                             <br />
                             GOLDER
@@ -102,15 +102,15 @@ const Hero: React.FC = () => {
                 {/* Scroll Indicator */}
                 <div 
                     ref={scrollRef}
-                    className="mt-8 text-center"
+                    className="mt-24 sm:mt-28 md:mt-32 text-center flex items-center gap-2"
                 >
-                    <span className="text-xs uppercase text-black">SCROLL</span>
+                    <span className="text-xs sm:text-sm uppercase text-black">SCROLL</span>
                     <span className="text-black">↓</span>
                 </div>
             </div>
 
             {/* Desktop Layout */}
-            <div className="hidden sm:flex flex-col justify-between h-full sm:max-w-[70%] md:max-w-[55%] lg:max-w-[45%]">
+            <div className="hidden lg:flex flex-col justify-between h-full lg:max-w-[45%]">
                 {/* Left Content */}
                 <div className="flex-1">
                     {/* Top Title Section */}
